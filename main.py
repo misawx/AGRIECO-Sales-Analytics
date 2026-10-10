@@ -85,7 +85,7 @@ elif section == "DataFrame Exploration":
     st.header('Raw Dataset')
     st.dataframe(data)
     
-    data['data_livrare'] = pd.to_datetime(data['data_livrare'])
+    data['data_livrare'] = pd.to_datetime(data['data_livrare'], errors='coerce')
     data_grouped = data.groupby('data_livrare')['cantitate_um'].sum().reset_index()
 
     st.header("📈 Sales Timeline Trend")
@@ -156,7 +156,7 @@ elif section == "Outlier Analysis":
     st.write(data.describe())
 
 elif section == "Data Aggregations":
-    data["data_livrare"] = pd.to_datetime(data["data_livrare"], format="%m/%d/%Y")
+    data["data_livrare"] = pd.to_datetime(data["data_livrare"], errors='coerce')
 
     st.markdown("""
     # 📊 Aggregated Metrics
@@ -200,8 +200,8 @@ elif section == "Data Aggregations":
     ax.grid(True)
     st.pyplot(fig)
 
-elif section == "Histograme":
-    data["data_livrare"] = pd.to_datetime(data["data_livrare"], format="%m/%d/%Y")
+elif section == "Histograms":
+    data["data_livrare"] = pd.to_datetime(data["data_livrare"], errors='coerce')
 
     st.markdown("""
     # 📊 Distribution Histograms
@@ -315,7 +315,7 @@ elif section == "Preprocesare Date":
     encoded_data["denumire_produs_encoded"] = label_encoder.fit_transform(data["denumire_produs"])
     st.write(encoded_data[["denumire_produs", "denumire_produs_encoded"]].head())
     st.markdown("""
-    ✅ **Note:** Maps text names to numeric indices—handful for tree-based architectures or categorical identification.
+    ✅ **Note:** Maps text names to numeric indices—handy for tree-based architectures or categorical identification.
     """, unsafe_allow_html=True)
 
     st.subheader("📏 Standardization (StandardScaler)")
